@@ -1,4 +1,4 @@
-package coderscampus.com.assignment4;
+package com.coderscampus.assignment4;
 
 import java.io.*;
 import java.util.Arrays;
@@ -36,7 +36,7 @@ public class FileService {
 
     public void writeStudents(Student[] students, String course) {
         try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(course))) {
-            bufferedWriter.write("Student ID, Name, Course, Grade\n");
+            bufferedWriter.write("Student ID,Name,Course,Grade\n");
 
             for (Student student : students) {
                 if(student != null){

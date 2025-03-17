@@ -1,4 +1,4 @@
-package coderscampus.com.assignment4;
+package com.coderscampus.assignment4;
 
 public class StudentListApp {
     public static void main(String[] args) {
