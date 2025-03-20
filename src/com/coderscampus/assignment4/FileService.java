@@ -6,7 +6,17 @@ import java.util.Arrays;
 public class FileService {
 
     public Student[] readStudents(String fileName) {
-        Student[] students = new Student[100];
+
+        int studentCount = 0;
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))){
+            while((bufferedReader.readLine()) != null){
+                studentCount++;
+            }
+        } catch (IOException e) {
+            System.out.println("Oops, there was an error counting the number of lines: " + e.getMessage());
+        }
+
+        Student[] students = new Student[studentCount];
 
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))){
             String line;
@@ -14,24 +24,13 @@ public class FileService {
             bufferedReader.readLine(); //To skip the title
             while((line = bufferedReader.readLine()) != null) {
                 String[] splitLine = line.split(",");
-                Student student = new Student(splitLine[0],splitLine[1],splitLine[2],splitLine[3]);
+                Student student = new Student(splitLine[0].trim(),splitLine[1].trim(),splitLine[2].trim(),splitLine[3].trim());
                 students[index++] = student;
             }
         } catch (IOException e) {
             System.out.println("Oops, there was an error reading the file: " + e.getMessage());
         }
         return students;
-    }
-
-    public void sortByGrade(Student[] students) {
-        Arrays.sort(students, (student1, student2) -> {
-            if (student1 == null || student2 == null) {
-                return 0;
-            }
-            Integer grade1 = Integer.parseInt(student1.getGrade());
-            Integer grade2 = Integer.parseInt((student2.getGrade()));
-            return grade2.compareTo(grade1);
-        });
     }
 
     public void writeStudents(Student[] students, String course) {
